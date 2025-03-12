@@ -106,6 +106,12 @@
       "nbits": 8,
       "type": "uint",
       "as_property": true
+    },
+    {
+      "name": "local_adp",
+      "nbits": null,
+      "type": "bytes",
+      "as_property": true
     }
   ]
 }

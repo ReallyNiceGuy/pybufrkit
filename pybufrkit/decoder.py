@@ -123,7 +123,7 @@ class Decoder(Coder):
                 parameter.value = self.process_unexpanded_descriptors(bit_reader, section)
             elif parameter.type == PARAMETER_TYPE_TEMPLATE_DATA:
                 parameter.value = self.process_template_data(bufr_message, bit_reader)
-            elif parameter.nbits == 0:
+            elif parameter.nbits == 0 or parameter.nbits is None:
                 # Zero number of bits means to read all bits till the end of the section
                 parameter.value = bit_reader.read(
                     parameter.type,

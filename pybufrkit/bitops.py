@@ -73,6 +73,8 @@ class BitWriter(object):
         """Write given number of bits for the value of given data type"""
         func = getattr(self, 'write_' + data_type)
         if data_type == 'bytes':
+            if nbits is None:
+                return func(value)
             return func(value, nbits // NBITS_PER_BYTE)
         elif data_type in ('bool', 'bin'):
             return func(value)

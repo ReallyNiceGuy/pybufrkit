@@ -187,7 +187,7 @@ class SectionConfigurer(object):
             data_type = parameter['type']
             nbits = parameter['nbits']
             if data_type == 'bytes':
-                assert nbits % NBITS_PER_BYTE == 0, \
+                assert nbits is None or nbits % NBITS_PER_BYTE == 0, \
                     'nbits for bytes type must be integer multiple of 8: {}'.format(nbits)
             section_parameter = SectionParameter(
                 parameter['name'],
@@ -242,10 +242,18 @@ class SectionConfigurer(object):
         """
         section = self.configure_section(bufr_message, section_index)
         if section is not None:
-            assert len(section) == len(values), \
-                'Number of Section parameters ({}) not equal to number of values to be encoded ({})'.format(
-                    len(section), len(values))
+            assert len(section) >= len(values), \
+                'Number of Section parameters ({}) smaller then the number of values to be encoded ({}) in Section {}'.format(
+                     len(section), len(values), section_index)
+
             for idx, parameter in enumerate(section):
+                if idx >= len(values):
+                  if parameter.type != 'bytes' or parameter.nbits is not None:
+                    assert False, \
+                            'Number of Section parameters ({}) doesn\'t match the expected number of values to be encoded ({}) in Section {}: "{}"'.format(
+                            len(section), len(values), section_index, parameter.name)
+                  else:
+                        values.append(b'')
                 parameter.value = values[idx] if overrides is None else overrides.get(parameter.name, values[idx])
 
         return section
