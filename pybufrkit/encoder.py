@@ -215,7 +215,7 @@ class Encoder(Coder):
         :return:
         """
         # TODO: Parametrise the "normalize" argument
-        bufr_template, table_group = bufr_message.build_template(self.tables_root_dir, normalize=0)
+        bufr_template, table_group = bufr_message.build_template(self.tables_root_dir, normalize=1)
 
         state = CoderState(bufr_message.is_compressed.value, bufr_message.n_subsets.value, section_parameter.value)
 
