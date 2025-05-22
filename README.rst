@@ -1,3 +1,5 @@
+*DO NOT USE! PLEASE USE THE ORIGINAL CODE FROM https://github.com/ywangd/pybufrkit! THIS WAS EXPERIMENTAL ONLY!*
+
 Python Toolkit for WMO BUFR Messages
 ====================================
 
